@@ -1,0 +1,2 @@
+# Mencegah akses langsung ke folder gambar
+Options -Indexes
