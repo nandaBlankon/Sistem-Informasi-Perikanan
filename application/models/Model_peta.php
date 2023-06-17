@@ -27,6 +27,8 @@ class Model_peta extends CI_Model
             'peta_nama' => $post['peta_nama'],
             'kawasan' => $post['kawasan'],
             'image' => $post['image'],
+            'tahun' => $post['tahun'],
+            'bulan' => $post['bulan'],
         ];
         $this->db->insert('peta_tb', $params);
     }
@@ -37,6 +39,8 @@ class Model_peta extends CI_Model
             'peta_id' => $post['peta_id'],
             'peta_nama' => $post['peta_nama'],
             'kawasan' => $post['kawasan'],
+            'tahun' => $post['tahun'],
+            'bulan' => $post['bulan'],
         ];
 
         if ($post['image'] != null) {

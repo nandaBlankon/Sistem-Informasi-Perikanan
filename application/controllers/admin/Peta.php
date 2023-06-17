@@ -26,8 +26,10 @@ class Peta extends CI_Controller
         $peta = new stdClass;
         $peta->peta_id      = null;
         $peta->peta_nama    = null;
-        $peta->kawasan     = null;
-        $peta->image    = null;
+        $peta->kawasan      = null;
+        $peta->image        = null;
+        $peta->tahun        = null;
+        $peta->bulan        = null;
 
         $data = array(
             'title'     => 'Data Peta',
@@ -55,6 +57,8 @@ class Peta extends CI_Controller
         if (isset($_POST['tambah'])) {
             $this->form_validation->set_rules('peta_nama', 'Nama Peta', 'trim|required', array('required' => 'Bagian ini wajib diisi.'));
             $this->form_validation->set_rules('kawasan', 'Kawasan', 'trim|required', array('required' => 'Bagian ini wajib diisi.'));
+            $this->form_validation->set_rules('tahun', 'Tahun', 'trim|required', array('required' => 'Bagian ini wajib diisi.'));
+            $this->form_validation->set_rules('bulan', 'Bulan', 'trim|required', array('required' => 'Bagian ini wajib diisi.'));
 
             $this->form_validation->set_error_delimiters('<small style="color: gray; margin-bottom: 0;color: red; text-decoration: none;">', '</small>');
 
@@ -88,6 +92,8 @@ class Peta extends CI_Controller
         } else if (isset($_POST['edit'])) {
             $this->form_validation->set_rules('peta_nama', 'Nama Peta', 'trim|required', array('required' => 'Bagian ini wajib diisi.'));
             $this->form_validation->set_rules('kawasan', 'Kawasan', 'trim|required', array('required' => 'Bagian ini wajib diisi.'));
+            $this->form_validation->set_rules('tahun', 'Tahun', 'trim|required', array('required' => 'Bagian ini wajib diisi.'));
+            $this->form_validation->set_rules('bulan', 'Bulan', 'trim|required', array('required' => 'Bagian ini wajib diisi.'));
 
             $this->form_validation->set_error_delimiters('<small style="color: gray; margin-bottom: 0;color: red; text-decoration: none;">', '</small>');
 

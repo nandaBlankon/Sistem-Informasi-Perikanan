@@ -71,6 +71,45 @@
                                     <?php } ?>
 
                                 </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group <?= form_error('tahun') ? 'has-error' : null ?>">
+                                            <label for="tahun" style="text-align: right;">Tahun*</label>
+                                            <select name="tahun" id="tahun" class="form-control text-uppercase">
+                                                <option value="">- Pilih Tahun -</option>
+                                                <?php
+                                                $currentYear = date('Y');
+                                                $startYear = 2010;
+                                                for ($year = $currentYear; $year >= $startYear; $year--) { ?>
+                                                    <option value="<?= $year; ?>" <?= $row->tahun == $year ? "selected" : null; ?>><?= $year; ?></option>
+                                                <?php } ?>
+                                                ?>
+                                            </select>
+                                            <span class="invalid-feedback"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group <?= form_error('bulan') ? 'has-error' : null ?>">
+                                            <label for="bulan" style="text-align: right;">Bulan*</label>
+                                            <select name="bulan" id="bulan" class="form-control text-uppercase">
+                                                <option value="">- Pilih Bulan -</option>
+                                                <option value="Januari">Januari</option>
+                                                <option value="Februari">Februari</option>
+                                                <option value="Maret">Maret</option>
+                                                <option value="April">April</option>
+                                                <option value="Mei">Mei</option>
+                                                <option value="Juni">Juni</option>
+                                                <option value="Juli">Juli</option>
+                                                <option value="Agustus">Agustus</option>
+                                                <option value="September">September</option>
+                                                <option value="Oktober">Oktober</option>
+                                                <option value="November">November</option>
+                                                <option value="Desember">Desember</option>
+                                            </select>
+                                            <span class="invalid-feedback"></span>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
                                     <button type="reset" class="btn btn-outline-primary">Reset</button>
                                     <button type="submit" name="<?= $page ?>" class="btn btn-primary">Unggah</button>

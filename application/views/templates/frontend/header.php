@@ -105,7 +105,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                 <a href="<?= site_url('tpi.html'); ?>" class="btn btn-outline-light py-sm-3 px-sm-5 rounded-pill animated slideInRight">TPI</a>
                             </div>
                             <div class="col-lg-6 text-center text-lg-start">
-                                <img class="img-fluid" src="<?= site_url('assets/frontend/'); ?>img/hero.png" alt="">
+                                <img class="img-fluid" width="100%" src="<?= site_url('assets/'); ?>peta aceh.png" alt="Peta Provinsi Aceh">
                             </div>
                         </div>
                     </div>

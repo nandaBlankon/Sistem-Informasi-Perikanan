@@ -48,6 +48,7 @@
                                         <th>No</th>
                                         <th>Nama Peta</th>
                                         <th>Kawasan</th>
+                                        <th>Bulan/Tahun</th>
                                         <th>Peta</th>
                                         <th>#</th>
                                     </tr>
@@ -61,6 +62,7 @@
                                             <td><?= $no++; ?></td>
                                             <td><?= $data->peta_nama; ?></td>
                                             <td><?= $data->kawasan; ?></td>
+                                            <td><?= $data->bulan; ?>/<?= $data->tahun; ?></td>
                                             <td>
                                                 <img src="<?= site_url('uploads/peta/' . $data->image); ?>" class="img-fluid" width="300px">
                                             </td>
