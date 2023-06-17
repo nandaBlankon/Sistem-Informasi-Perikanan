@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 08 Jun 2023 pada 09.22
+-- Waktu pembuatan: 17 Jun 2023 pada 12.34
 -- Versi server: 10.4.21-MariaDB
 -- Versi PHP: 7.4.23
 
@@ -96,6 +96,8 @@ CREATE TABLE `peta_tb` (
   `peta_id` int(11) NOT NULL,
   `peta_nama` varchar(20) DEFAULT NULL,
   `kawasan` text DEFAULT NULL COMMENT 'WPP',
+  `tahun` char(4) DEFAULT NULL,
+  `bulan` varchar(10) DEFAULT NULL,
   `image` text DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
@@ -103,8 +105,8 @@ CREATE TABLE `peta_tb` (
 -- Dumping data untuk tabel `peta_tb`
 --
 
-INSERT INTO `peta_tb` (`peta_id`, `peta_nama`, `kawasan`, `image`) VALUES
-(5, 'Kota Banda Aceh', 'Kota Banda Aceh', 'peta-230608-ebf828a63c.jpg');
+INSERT INTO `peta_tb` (`peta_id`, `peta_nama`, `kawasan`, `tahun`, `bulan`, `image`) VALUES
+(5, 'Kota Banda Aceh', 'Kota Banda Aceh', '2022', 'Agustus', 'peta-230608-ebf828a63c.jpg');
 
 -- --------------------------------------------------------
 
