@@ -13,6 +13,7 @@ class Home extends CI_Controller
     {
         $data = [
             'title' => 'Home',
+            'peta'  => $this->db->query("SELECT * FROM peta_tb ORDER BY peta_id DESC LIMIT 1")->row(),
             'page'  => 'home',
             'act_home'  => 'active'
         ];
