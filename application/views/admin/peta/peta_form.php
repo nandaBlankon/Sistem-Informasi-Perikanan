@@ -93,18 +93,18 @@
                                             <label for="bulan" style="text-align: right;">Bulan*</label>
                                             <select name="bulan" id="bulan" class="form-control text-uppercase">
                                                 <option value="">- Pilih Bulan -</option>
-                                                <option value="Januari">Januari</option>
-                                                <option value="Februari">Februari</option>
-                                                <option value="Maret">Maret</option>
-                                                <option value="April">April</option>
-                                                <option value="Mei">Mei</option>
-                                                <option value="Juni">Juni</option>
-                                                <option value="Juli">Juli</option>
-                                                <option value="Agustus">Agustus</option>
-                                                <option value="September">September</option>
-                                                <option value="Oktober">Oktober</option>
-                                                <option value="November">November</option>
-                                                <option value="Desember">Desember</option>
+                                                <option value="Januari" <?= $row->bulan == "Januari" ? "selected" : null; ?>>Januari</option>
+                                                <option value="Februari" <?= $row->bulan == "Februari" ? "selected" : null; ?>>Februari</option>
+                                                <option value="Maret" <?= $row->bulan == "Maret" ? "selected" : null; ?>>Maret</option>
+                                                <option value="April" <?= $row->bulan == "April" ? "selected" : null; ?>>April</option>
+                                                <option value="Mei" <?= $row->bulan == "Mei" ? "selected" : null; ?>>Mei</option>
+                                                <option value="Juni" <?= $row->bulan == "Juni" ? "selected" : null; ?>>Juni</option>
+                                                <option value="Juli" <?= $row->bulan == "Juli" ? "selected" : null; ?>>Juli</option>
+                                                <option value="Agustus" <?= $row->bulan == "Agustus" ? "selected" : null; ?>>Agustus</option>
+                                                <option value="September" <?= $row->bulan == "September" ? "selected" : null; ?>>September</option>
+                                                <option value="Oktober" <?= $row->bulan == "Oktober" ? "selected" : null; ?>>Oktober</option>
+                                                <option value="November" <?= $row->bulan == "November" ? "selected" : null; ?>>November</option>
+                                                <option value="Desember" <?= $row->bulan == "Desember" ? "selected" : null; ?>>Desember</option>
                                             </select>
                                             <span class="invalid-feedback"></span>
                                         </div>
