@@ -93,6 +93,20 @@ class Home extends CI_Controller
         $this->load->view('templates/frontend/footer', $data);
     }
 
+    public function survei()
+    {
+        $data = [
+            'title' => 'Survei',
+            'page'  => 'survei',
+            // 'row'   => $this->model_peta->get(),
+            'act_survei'  => 'active'
+        ];
+
+        $this->load->view('templates/frontend/header', $data);
+        $this->load->view('pages/survei', $data);
+        $this->load->view('templates/frontend/footer', $data);
+    }
+
     public function login()
     {
         $data['title'] = 'Halaman Login';

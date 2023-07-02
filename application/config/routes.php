@@ -49,6 +49,14 @@ $route['proses-tambah-peta.html'] = 'admin/peta/proses_tambah';
 $route['ubah-peta/(:any)'] = 'admin/peta/edit/$1';
 $route['hapus-peta/(:any)'] = 'admin/peta/delete/$1';
 
+$route['data-survei.html'] = 'admin/survei';
+// $route['get-kapal.html'] = 'admin/kapal/get_ajax';
+// $route['tambah-kapal.html'] = 'admin/kapal/tambah';
+$route['pertanyaan-add.html'] = 'admin/survei/proses_tambah';
+$route['ubah-pertanyaan/(:any)'] = 'admin/survei/edit/$1';
+$route['hapus-pertanyaan/(:any)'] = 'admin/survei/delete/$1';
+$route['pertanyaan-update.html'] = 'admin/survei/update';
+
 $route['profil.html'] = 'admin/pengaturan/profil';
 $route['profil-update'] = 'admin/pengaturan/profil_update';
 
@@ -57,3 +65,4 @@ $route['nelayan.html'] = 'home/data_nelayan';
 $route['tpi.html'] = 'home/data_tpi';
 $route['ikan.html'] = 'home/data_ikan';
 $route['peta.html'] = 'home/data_peta';
+$route['survei.html'] = 'home/survei';

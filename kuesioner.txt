@@ -1,0 +1,16 @@
+responden_tb
+responden_id
+kapal_id
+nama
+alamat
+email
+
+pertanyaan_tb
+pertanyaan_id
+pertanyaan_teks
+
+jawaban_tb
+jawaban_id
+responden_id
+pertanyaan_id
+jawaban_isi

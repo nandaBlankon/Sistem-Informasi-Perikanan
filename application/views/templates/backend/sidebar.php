@@ -75,6 +75,16 @@
                             </p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="<?= base_url('data-survei.html'); ?>" class="nav-link <?php if (isset($act_survei)) {
+                                                                                            echo $act_survei;
+                                                                                        } ?>">
+                            <i class="nav-icon fas fa-folder"></i>
+                            <p>
+                                Data Survei
+                            </p>
+                        </a>
+                    </li>
                 <?php endif ?>
                 <li class="nav-header">PENGATURAN</li>
                 <li class="nav-item">

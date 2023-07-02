@@ -77,6 +77,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
                         <a href="<?= site_url('peta.html'); ?>" class="nav-item nav-link <?php if (isset($act_peta)) {
                                                                                                 echo $act_peta;
                                                                                             } ?>">Peta</a>
+                        <a href="<?= site_url('survei.html'); ?>" class="nav-item nav-link <?php if (isset($act_survei)) {
+                                                                                                echo $act_survei;
+                                                                                            } ?>">Survei</a>
                         <?php if ($this->session->userdata('user_id')) { ?>
                             <a href="<?= site_url('dashboard.html'); ?>" class="nav-item nav-link">Dashboard</a>
                         <?php } else { ?>
