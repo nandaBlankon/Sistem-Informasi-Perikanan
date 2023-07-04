@@ -6,7 +6,7 @@ class Home extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        $this->load->model(['model_user', 'model_kapal', 'model_nelayan', 'model_tpi', 'model_ikan', 'model_peta']);
+        $this->load->model(['model_user', 'model_kapal', 'model_nelayan', 'model_tpi', 'model_ikan', 'model_peta', 'model_survei']);
     }
 
     public function index()
@@ -98,13 +98,154 @@ class Home extends CI_Controller
         $data = [
             'title' => 'Survei',
             'page'  => 'survei',
-            // 'row'   => $this->model_peta->get(),
+            'row'   => $this->model_survei->getPertanyaan(),
+            'ships' => $this->model_kapal->get(),
             'act_survei'  => 'active'
         ];
 
         $this->load->view('templates/frontend/header', $data);
-        $this->load->view('pages/survei', $data);
+        $this->load->view('pages/survei_baru', $data);
         $this->load->view('templates/frontend/footer', $data);
+    }
+
+    public function proses()
+    {
+        $this->form_validation->set_rules('jawaban_isi[]', 'Jawaban', 'trim|required', array('required' => 'Pilih jawaban'));
+        $this->form_validation->set_rules('nama', 'Nama', 'trim|required', array('required' => 'Bagian ini wajib diisi'));
+        $this->form_validation->set_rules('alamat', 'Alamat', 'trim|required', array('required' => 'Bagian ini wajib diisi'));
+        $this->form_validation->set_rules('email', 'Email', 'trim|required', array('required' => 'Bagian ini wajib diisi'));
+        $this->form_validation->set_rules('kapal_id', 'Kapal', 'trim|required', array('required' => 'Bagian ini wajib dipilih'));
+
+        $this->form_validation->set_error_delimiters('<small style="color: gray; margin-bottom: 0;color: red; text-decoration: none;">', '</small>');
+
+        if ($this->form_validation->run() == FALSE) {
+            $this->survei();
+        } else {
+            // $nama = $this->input->post('nama');
+            // $alamat = $this->input->post('alamat');
+            // $email = $this->input->post('email');
+            // $kapal = $this->input->post('kapal_id');
+            // $pertanyaan_id = $this->input->post('pertanyaan_id');
+            // $jawaban = $this->input->post('jawaban_isi');
+
+            // // Simpan data responden ke dalam tabel Responden
+            // $responden_data = array(
+            //     'kapal_id' => $kapal,
+            //     'nama' => $nama,
+            //     'alamat' => $alamat,
+            //     'email' => $email,
+            //     // 'tanggal_survey' => date('Y-m-d')
+            // );
+            // $this->db->insert('responden_tb', $responden_data);
+            // $responden_id = $this->db->insert_id();
+
+            // // Simpan data jawaban ke dalam tabel Jawaban
+            // $data = array();
+            // for ($i = 0; $i < count($pertanyaan_id); $i++) {
+            //     $data[] = array(
+            //         'responden_id' => $responden_id,
+            //         'pertanyaan_id' => $pertanyaan_id[$i],
+            //         'jawaban_isi' => $jawaban[$i]
+            //     );
+            // }
+            // $this->db->insert_batch('jawaban_tb', $data);
+            $nama = $this->input->post('nama');
+            $alamat = $this->input->post('alamat');
+            $email = $this->input->post('email');
+            $kapal = $this->input->post('kapal_id');
+            $pertanyaan_id = $this->input->post('pertanyaan_id');
+            $jawaban = $this->input->post('jawaban_isi');
+
+            // Simpan data responden ke dalam tabel Responden
+            $responden_data = array(
+                'kapal_id' => $kapal,
+                'nama' => $nama,
+                'alamat' => $alamat,
+                'email' => $email,
+                // 'tanggal_survey' => date('Y-m-d')
+            );
+            $this->db->insert('responden_tb', $responden_data);
+            $responden_id = $this->db->insert_id();
+
+            // Simpan data jawaban ke dalam tabel Jawaban
+            $data = array();
+            for ($i = 0; $i < count($pertanyaan_id); $i++) {
+                $jawaban_isi = $jawaban[$i];
+                $bobot = $this->getBobotJawaban($jawaban_isi); // Mengambil bobot berdasarkan jawaban
+                $data[] = array(
+                    'responden_id' => $responden_id,
+                    'pertanyaan_id' => $pertanyaan_id[$i],
+                    'jawaban_isi' => $jawaban_isi,
+                    'bobot' => $bobot
+                );
+            }
+            $this->db->insert_batch('jawaban_tb', $data);
+
+            if ($this->db->affected_rows() > 0) {
+                $this->session->set_flashdata("sukses", "<small>Survei berhasil dikirim. Terima kasih sudah meluangkan waktu.</small>");
+            }
+            redirect('survei.html');
+        }
+    }
+
+    // Fungsi untuk mendapatkan bobot berdasarkan jawaban
+    private function getBobotJawaban($jawaban_isi)
+    {
+        // Definisikan bobot berdasarkan jawaban
+        $bobot_jawaban = array(
+            'SS' => 5, // Sangat Setuju
+            'S' => 4, // Setuju
+            'RR' => 3, // Ragu-Ragu
+            'TS' => 2, // Tidak Setuju
+            'STS' => 1 // Sangat Tidak Setuju
+        );
+
+        // Ambil bobot berdasarkan jawaban
+        if (isset($bobot_jawaban[$jawaban_isi])) {
+            return $bobot_jawaban[$jawaban_isi];
+        } else {
+            return 0; // Jika jawaban tidak valid, beri bobot 0
+        }
+    }
+
+    public function kirim_survei()
+    {
+        $this->validation_for = 'add';
+        $data = array();
+        $data['status'] = TRUE;
+
+        $this->form_validation->set_error_delimiters('', '');
+
+        $this->form_validation->set_rules('jawaban_isi[]', 'Jawaban', 'trim|required', array('required' => 'Pilih jawaban'));
+        $this->form_validation->set_rules('nama', 'Nama', 'trim|required', array('required' => 'Bagian ini wajib diisi'));
+        $this->form_validation->set_rules('alamat', 'Alamat', 'trim|required', array('required' => 'Bagian ini wajib diisi'));
+        $this->form_validation->set_rules('email', 'Email', 'trim|required', array('required' => 'Bagian ini wajib diisi'));
+        $this->form_validation->set_rules('kapal_id', 'Kapal', 'trim|required', array('required' => 'Bagian ini wajib dipilih'));
+
+        if ($this->form_validation->run() == FALSE) {
+            $errors = array(
+                'nama'          => form_error('nama'),
+                'alamat'        => form_error('nama'),
+                'email'         => form_error('email'),
+                'kapal_id'      => form_error('kapal_id'),
+                'jawaban_isi[]' => form_error('jawaban_isi[]'),
+            );
+            $data = array(
+                'status'         => FALSE,
+                'errors'         => $errors
+            );
+            $this->output->set_content_type('application/json')->set_output(json_encode($data));
+        } else {
+            $insert = array(
+                'pertanyaan_id' => $this->input->post('pertanyaan_id'),
+                'pertanyaan_text' => $this->input->post('pertanyaan_text'),
+            );
+
+            $insert = $this->model_survei->save($insert);
+
+            $data['status'] = TRUE;
+            $this->output->set_content_type('application/json')->set_output(json_encode($data));
+        }
     }
 
     public function login()

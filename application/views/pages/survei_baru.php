@@ -3,7 +3,7 @@
     <div class="container px-lg-5">
         <div class="section-title position-relative text-center mb-5 pb-2 wow fadeInUp" data-wow-delay="0.1s">
             <h6 class="position-relative d-inline text-primary ps-4"><?= $title; ?></h6>
-            <h2 class="mt-2">Luangkan waktu sejenak untuk mengisi kuesioner berikut</h2>
+            <h2 class="mt-2">Luangkan waktu sejenak untuk mengisi kuesioner berikut <br><?php $this->view('messages') ?></h2>
         </div>
         <div class="row g-4">
             <div class="col-md-12">
@@ -29,7 +29,7 @@
                     3. Klik tombol "Kirim Survei" untuk mengakhiri Pengisian Survei
                 </div>
             </div>
-            <form action="#" id="form">
+            <form action="<?= site_url('home/proses'); ?>" method="post">
                 <div class="row">
                     <div class="col-md-4">
                         <div class="card">
@@ -37,21 +37,21 @@
                                 Mohon isi biodata anda dibawah
                             </div>
                             <div class="card-body">
-                                <input type="hidden" id="ip_address" name="ip_address">
+                                <!-- <input type="hidden" id="ip_address" name="ip_address"> -->
                                 <div class="form-group">
                                     <label for="nama">Nama lengkap anda</label>
-                                    <input type="text" name="nama" id="nama" class="form-control" value="<?= set_value('nama'); ?>">
-                                    <span class="invalid-feedback"></span>
+                                    <input type="text" name="nama" id="nama" class="form-control" value="<?= set_value('nama'); ?>" autofocus>
+                                    <?= form_error('nama') ?>
                                 </div>
                                 <div class="form-group mt-3">
                                     <label for="alamat">Alamat lengkap anda</label>
                                     <textarea name="alamat" id="alamat" rows="5" class="form-control" placeholder="Jl. Abc Desa Def Kecamatan Ghi Kabupaten Jkl"><?= set_value('alamat'); ?></textarea>
-                                    <span class="invalid-feedback"></span>
+                                    <?= form_error('alamat') ?>
                                 </div>
                                 <div class="form-group mt-3">
                                     <label for="email">Email aktif anda</label>
                                     <input type="text" name="email" id="email" class="form-control" value="<?= set_value('email'); ?>">
-                                    <span class="invalid-feedback"></span>
+                                    <?= form_error('email') ?>
                                 </div>
                                 <div class="form-group mt-3">
                                     <label for="email">Kapal tempat anda bekerja </label>
@@ -61,7 +61,7 @@
                                             <option value="<?= $ship->kapal_id; ?>">Kapal <?= ucwords($ship->kapal_nama); ?></option>
                                         <?php endforeach ?>
                                     </select>
-                                    <span class="invalid-feedback"></span>
+                                    <?= form_error('kapal_id') ?>
                                 </div>
                             </div>
                         </div>
@@ -91,14 +91,14 @@
                                                 <option value="TS">Tidak Setuju</option>
                                                 <option value="STS">Sangat Tidak Setuju</option>
                                             </select>
-                                            <span class="invalid-feedback" style="font-size: x-small;"></span>
+                                            <?= form_error('jawaban_isi[]') ?>
                                         </td>
                                     </tr>
                                 <?php endforeach ?>
                             </tbody>
                         </table>
                         <div class="form-group">
-                            <button type="submit" id="btnSave" onclick="save()" class="btn btn-primary"><i class="fa fa-save"></i> Kirim Survei</button>
+                            <button type="submit" id="btnSave" class="btn btn-primary"><i class="fa fa-save"></i> Kirim Survei</button>
                         </div>
                     </div>
                 </div>
@@ -121,73 +121,4 @@
         };
         xhr.send();
     });
-
-    function save() {
-        $('#btnSave').text('Menyimpan...'); //change button text
-        $('#btnSave').attr('disabled', true); //set button disable 
-        var url, method;
-
-        url = "<?= base_url('kirim-survei.html') ?>";
-        method = 'saved';
-
-        // ajax adding data to database
-        $.ajax({
-            url: url,
-            type: "POST",
-            data: $('#form').serialize(),
-            dataType: "json",
-            beforeSend: function() {
-                // hilangkan class select2-hidden-accessible
-                $('.select2').removeClass('select2-hidden-accessible');
-            },
-            success: function(data) {
-
-                if (data.status) {
-                    const swalWithBootstrapButtons = Swal.mixin({
-                        customClass: {
-                            confirmButton: 'btn btn-success',
-                            cancelButton: 'btn btn-danger mr-2'
-                        },
-                        buttonsStyling: false
-                    })
-                    swalWithBootstrapButtons.fire(
-                        'Survei Anda Berhasil Dikirim!',
-                        'Terima Kasih Sudah Meluangkan Waktunya',
-                        'success'
-                    ).then(() => {
-                        location.reload();
-                    });
-                } else {
-
-                    $.each(data.errors, function(key, value) {
-                        $('[name="' + key + '"]').addClass('is-invalid'); //select parent twice to select div form-group class and add has-error class
-                        $('[name="' + key + '"]').next().text(value); //select span help-block class set text error string
-                        if (value == "") {
-                            $('[name="' + key + '"]').removeClass('is-invalid');
-                            $('[name="' + key + '"]').addClass('is-valid');
-                        }
-                    });
-                }
-
-                $('#btnSave').text('Kirim Survei'); //change button text
-                $('#btnSave').attr('disabled', false); //set button enable 
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                console.log(errorThrown);
-                alert('Error adding / updating data: ' + textStatus + ' ' + errorThrown);
-                $('#btnSave').text('Kirim Survei'); //change button text
-                $('#btnSave').attr('disabled', false); //set button enable 
-            }
-        });
-
-        $('#form input, #form textarea').on('keyup', function() {
-            $(this).removeClass('is-valid is-invalid');
-        });
-        $('#form select').on('change', function() {
-            $(this).removeClass('is-valid is-invalid');
-            $(this).find('option').removeClass('is-invalid');
-            $(this).find('option').removeAttr('selected');
-            $('.select2-selection').removeClass('is-invalid');
-        });
-    }
 </script>

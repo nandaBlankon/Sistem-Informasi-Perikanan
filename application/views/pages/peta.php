@@ -5,7 +5,7 @@
             <h6 class="position-relative d-inline text-primary ps-4"><?= $title; ?></h6>
             <h2 class="mt-2"><?= $title; ?> yang tercatat pada kami</h2>
         </div>
-        <div class="row g-4 portfolio-container">
+        <div class="row g-4">
             <?php foreach ($row->result() as $data) : ?>
                 <div class="col-lg-4 col-md-6 portfolio-item first wow zoomIn" data-wow-delay="0.1s">
                     <div class="position-relative rounded overflow-hidden">

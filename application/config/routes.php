@@ -66,3 +66,4 @@ $route['tpi.html'] = 'home/data_tpi';
 $route['ikan.html'] = 'home/data_ikan';
 $route['peta.html'] = 'home/data_peta';
 $route['survei.html'] = 'home/survei';
+$route['kirim-survei.html'] = 'home/kirim_survei';

@@ -11,6 +11,8 @@ pertanyaan_teks
 
 jawaban_tb
 jawaban_id
+ip_address
 responden_id
 pertanyaan_id
 jawaban_isi
+bobot

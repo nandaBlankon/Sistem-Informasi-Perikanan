@@ -26,7 +26,7 @@
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">
-                                Hasil Survei Koresponden
+                                Hasil Survei Dari Responden
                             </h3>
 
                             <div class="card-tools">
@@ -41,6 +41,33 @@
                         <div class="card-body">
 
                             <?php $this->view('messages') ?>
+
+                            <table id="example1" class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Pertanyaan</th>
+                                        <th>SS</th>
+                                        <th>S</th>
+                                        <th>RR</th>
+                                        <th>TS</th>
+                                        <th>STS</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($pertanyaan as $index => $key) : ?>
+                                        <tr>
+                                            <td><?php echo $index + 1; ?></td>
+                                            <td><?php echo $key->pertanyaan_text; ?></td>
+                                            <td><?php echo isset($jawaban_statistik[$key->pertanyaan_id]['SS']['jumlah']) ? $jawaban_statistik[$key->pertanyaan_id]['SS']['jumlah'] : 0; ?></td>
+                                            <td><?php echo isset($jawaban_statistik[$key->pertanyaan_id]['S']['jumlah']) ? $jawaban_statistik[$key->pertanyaan_id]['S']['jumlah'] : 0; ?></td>
+                                            <td><?php echo isset($jawaban_statistik[$key->pertanyaan_id]['RR']['jumlah']) ? $jawaban_statistik[$key->pertanyaan_id]['RR']['jumlah'] : 0; ?></td>
+                                            <td><?php echo isset($jawaban_statistik[$key->pertanyaan_id]['TS']['jumlah']) ? $jawaban_statistik[$key->pertanyaan_id]['TS']['jumlah'] : 0; ?></td>
+                                            <td><?php echo isset($jawaban_statistik[$key->pertanyaan_id]['STS']['jumlah']) ? $jawaban_statistik[$key->pertanyaan_id]['STS']['jumlah'] : 0; ?></td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
 
                         </div>
                         <!-- /.card-body -->

@@ -15,6 +15,28 @@ class Survei extends CI_Controller
         $pertanyaan->pertanyaan_id      = null;
         $pertanyaan->pertanyaan_text    = null;
 
+        $data['pertanyaan'] = $this->db->get('pertanyaan_tb')->result();
+
+        // Mengambil data statistik jawaban berdasarkan pertanyaan
+        $jawaban_statistik = array();
+        foreach ($data['pertanyaan'] as $row) {
+            $query = $this->db->select('jawaban_isi, COUNT(*) as jumlah')
+                ->where('pertanyaan_id', $row->pertanyaan_id)
+                ->group_by('jawaban_isi')
+                ->get('jawaban_tb');
+
+            $statistik = array();
+            foreach ($query->result() as $result) {
+                $statistik[$result->jawaban_isi] = array(
+                    'jumlah' => $result->jumlah,
+                    'persentase' => round(($result->jumlah / $query->num_rows()) * 100, 2)
+                );
+            }
+            $jawaban_statistik[$row->pertanyaan_id] = $statistik;
+        }
+
+        $data['jawaban_statistik'] = $jawaban_statistik;
+
         $data['title']      = 'Data Survei';
         $data['data']        = $this->model_survei->getPertanyaan();
         $data['row']        = $pertanyaan;
