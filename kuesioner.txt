@@ -16,3 +16,5 @@ responden_id
 pertanyaan_id
 jawaban_isi
 bobot
+
+
