@@ -34,6 +34,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
     <!-- Template Stylesheet -->
     <link href="<?= site_url('assets/frontend/'); ?>css/style.css" rel="stylesheet">
+
 </head>
 
 <body>
@@ -108,7 +109,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                 <a href="<?= site_url('tpi.html'); ?>" class="btn btn-outline-light py-sm-3 px-sm-5 rounded-pill animated slideInRight">TPI</a>
                             </div>
                             <div class="col-lg-6 text-center text-lg-start">
-                                <img class="img-fluid img-thumbnail" width="100%" style="box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.2);" src="<?= site_url('uploads/peta/' . $peta->image); ?>" alt="Peta <?= $peta->peta_nama; ?>">
+                                <img class="img-fluid img-thumbnail" id="preview" width="100%" style="box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.2);" src="<?= site_url('uploads/peta/' . $peta->image); ?>" alt="Peta <?= $peta->peta_nama; ?>">
                             </div>
                         </div>
                     </div>

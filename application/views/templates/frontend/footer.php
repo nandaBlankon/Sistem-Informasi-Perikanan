@@ -43,6 +43,36 @@
 
 <!-- Template Javascript -->
 <script src="<?= site_url('assets/frontend/'); ?>js/main.js"></script>
+<script>
+    const input = document.querySelector('#image');
+    const preview = document.querySelector('#preview');
+
+    input.addEventListener('change', function() {
+        const file = this.files[0];
+
+        if (file) {
+            const reader = new FileReader();
+
+            reader.addEventListener('load', function() {
+                preview.setAttribute('src', this.result);
+                preview.style.display = 'block'; // menampilkan preview foto
+
+                // tambahkan event click untuk memperbesar gambar saat di-klik
+                preview.addEventListener('click', function() {
+                    $.fancybox.open({
+                        src: preview.getAttribute('src'),
+                        type: 'image'
+                    });
+                });
+            });
+
+            reader.readAsDataURL(file);
+        } else {
+            preview.setAttribute('src', '');
+            preview.style.display = 'none'; // menyembunyikan preview foto
+        }
+    });
+</script>
 </body>
 
 </html>
