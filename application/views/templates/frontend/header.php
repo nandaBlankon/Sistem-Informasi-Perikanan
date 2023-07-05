@@ -34,17 +34,18 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
     <!-- Template Stylesheet -->
     <link href="<?= site_url('assets/frontend/'); ?>css/style.css" rel="stylesheet">
-
+    <!-- Zoom Foto -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
 </head>
 
 <body>
     <div class="container-xxl bg-white p-0">
         <!-- Spinner Start -->
-        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <!-- <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
             <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
                 <span class="sr-only">Loading...</span>
             </div>
-        </div>
+        </div> -->
         <!-- Spinner End -->
 
 
@@ -109,7 +110,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                 <a href="<?= site_url('tpi.html'); ?>" class="btn btn-outline-light py-sm-3 px-sm-5 rounded-pill animated slideInRight">TPI</a>
                             </div>
                             <div class="col-lg-6 text-center text-lg-start">
-                                <img class="img-fluid img-thumbnail" id="preview" width="100%" style="box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.2);" src="<?= site_url('uploads/peta/' . $peta->image); ?>" alt="Peta <?= $peta->peta_nama; ?>">
+                                <img class="img-fluid img-thumbnail" title="Klik untuk perbesar gambar" id="preview" width="100%" style="box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.2);" src="<?= site_url('uploads/peta/' . $peta->image); ?>" alt="Peta <?= $peta->peta_nama; ?>">
                             </div>
                         </div>
                     </div>

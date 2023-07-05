@@ -40,37 +40,20 @@
 <script src="<?= site_url('assets/frontend/'); ?>lib/owlcarousel/owl.carousel.min.js"></script>
 <script src="<?= site_url('assets/frontend/'); ?>lib/isotope/isotope.pkgd.min.js"></script>
 <script src="<?= site_url('assets/frontend/'); ?>lib/lightbox/js/lightbox.min.js"></script>
+<!-- zoom foto -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
 
 <!-- Template Javascript -->
 <script src="<?= site_url('assets/frontend/'); ?>js/main.js"></script>
 <script>
-    const input = document.querySelector('#image');
     const preview = document.querySelector('#preview');
-
-    input.addEventListener('change', function() {
-        const file = this.files[0];
-
-        if (file) {
-            const reader = new FileReader();
-
-            reader.addEventListener('load', function() {
-                preview.setAttribute('src', this.result);
-                preview.style.display = 'block'; // menampilkan preview foto
-
-                // tambahkan event click untuk memperbesar gambar saat di-klik
-                preview.addEventListener('click', function() {
-                    $.fancybox.open({
-                        src: preview.getAttribute('src'),
-                        type: 'image'
-                    });
-                });
-            });
-
-            reader.readAsDataURL(file);
-        } else {
-            preview.setAttribute('src', '');
-            preview.style.display = 'none'; // menyembunyikan preview foto
-        }
+    // tambahkan event click untuk memperbesar gambar saat di-klik
+    preview.addEventListener('click', function() {
+        $.fancybox.open({
+            src: preview.getAttribute('src'),
+            type: 'image',
+            transitionEffect: 'zoom-in-out'
+        });
     });
 </script>
 </body>
