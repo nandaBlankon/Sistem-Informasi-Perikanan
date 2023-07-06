@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 17 Jun 2023 pada 12.34
+-- Waktu pembuatan: 06 Jul 2023 pada 17.58
 -- Versi server: 10.4.21-MariaDB
 -- Versi PHP: 7.4.23
 
@@ -42,6 +42,36 @@ CREATE TABLE `ikan_tb` (
 INSERT INTO `ikan_tb` (`ikan_id`, `ikan_nama`, `produksi`, `produksi_tahun`, `kabupaten`) VALUES
 (2, 'ikan tongkol', '100', '2022', '1171'),
 (3, 'ikan selar', '155', '2023', '1171');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `jawaban_tb`
+--
+
+CREATE TABLE `jawaban_tb` (
+  `jawaban_id` int(11) NOT NULL,
+  `responden_id` int(11) DEFAULT NULL,
+  `pertanyaan_id` int(11) DEFAULT NULL,
+  `jawaban_isi` varchar(20) DEFAULT NULL,
+  `bobot` char(10) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `jawaban_tb`
+--
+
+INSERT INTO `jawaban_tb` (`jawaban_id`, `responden_id`, `pertanyaan_id`, `jawaban_isi`, `bobot`) VALUES
+(41, 6, 1, 'SS', '5'),
+(42, 6, 2, 'S', '4'),
+(43, 6, 3, 'RR', '3'),
+(44, 6, 4, 'RR', '3'),
+(45, 6, 5, 'STS', '1'),
+(46, 6, 6, 'S', '4'),
+(47, 6, 7, 'RR', '3'),
+(48, 6, 8, 'SS', '5'),
+(49, 6, 9, 'RR', '3'),
+(50, 6, 10, 'SS', '5');
 
 -- --------------------------------------------------------
 
@@ -85,6 +115,33 @@ CREATE TABLE `nelayan_tb` (
 
 INSERT INTO `nelayan_tb` (`nelayan_id`, `nik`, `nelayan_nama`, `nelayan_alamat`, `kapal_id`) VALUES
 (2, '1107141210210003', 'jailani', 'Jl. Syeikh Abdul Rauf Darussalam Banda Aceh, 23111, Banda Aceh', 2);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `pertanyaan_tb`
+--
+
+CREATE TABLE `pertanyaan_tb` (
+  `pertanyaan_id` int(11) NOT NULL,
+  `pertanyaan_text` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `pertanyaan_tb`
+--
+
+INSERT INTO `pertanyaan_tb` (`pertanyaan_id`, `pertanyaan_text`) VALUES
+(1, 'Tampilan menu pada sistem informasi mudah dipahami'),
+(2, 'Informasi data yang ditampilkan membantu  masyarakat dalam mencari informasi ?'),
+(3, 'Informasi dari sistem informasi  memudahkan pencarian data'),
+(4, 'Sistem menyajikan informasi data dengan cepat dan akurat'),
+(5, 'Tampilan awal Sistem Informasi Zona Potensi Penangkapan Ikan memberi gambaran wilayah tangkapan di Aceh'),
+(6, 'Tata letak menu dibedakan dengan warna'),
+(7, 'Disaat mengaksis sistem informasi Zona Potensi Penangkapan Ikan tidak terjadi error'),
+(8, 'Menu  yang ditampilkan dalam sistem memberikan informasi secara detail'),
+(9, 'Informasi yang di sajikan memuaskan'),
+(10, 'Tampilan menu yang di sajikan memberikan kepuasan');
 
 -- --------------------------------------------------------
 
@@ -641,6 +698,27 @@ INSERT INTO `regencies` (`id`, `province_id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `responden_tb`
+--
+
+CREATE TABLE `responden_tb` (
+  `responden_id` int(11) NOT NULL,
+  `kapal_id` int(11) DEFAULT NULL,
+  `nama` varchar(50) DEFAULT NULL,
+  `alamat` text DEFAULT NULL,
+  `email` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `responden_tb`
+--
+
+INSERT INTO `responden_tb` (`responden_id`, `kapal_id`, `nama`, `alamat`, `email`) VALUES
+(6, 2, 'Testing', 'Testing', 'testing@email.com');
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `tb_user`
 --
 
@@ -689,6 +767,12 @@ ALTER TABLE `ikan_tb`
   ADD PRIMARY KEY (`ikan_id`);
 
 --
+-- Indeks untuk tabel `jawaban_tb`
+--
+ALTER TABLE `jawaban_tb`
+  ADD PRIMARY KEY (`jawaban_id`);
+
+--
 -- Indeks untuk tabel `kapal_tb`
 --
 ALTER TABLE `kapal_tb`
@@ -699,6 +783,12 @@ ALTER TABLE `kapal_tb`
 --
 ALTER TABLE `nelayan_tb`
   ADD PRIMARY KEY (`nelayan_id`);
+
+--
+-- Indeks untuk tabel `pertanyaan_tb`
+--
+ALTER TABLE `pertanyaan_tb`
+  ADD PRIMARY KEY (`pertanyaan_id`);
 
 --
 -- Indeks untuk tabel `peta_tb`
@@ -712,6 +802,12 @@ ALTER TABLE `peta_tb`
 ALTER TABLE `regencies`
   ADD PRIMARY KEY (`id`),
   ADD KEY `regencies_province_id_index` (`province_id`);
+
+--
+-- Indeks untuk tabel `responden_tb`
+--
+ALTER TABLE `responden_tb`
+  ADD PRIMARY KEY (`responden_id`);
 
 --
 -- Indeks untuk tabel `tb_user`
@@ -736,6 +832,12 @@ ALTER TABLE `ikan_tb`
   MODIFY `ikan_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT untuk tabel `jawaban_tb`
+--
+ALTER TABLE `jawaban_tb`
+  MODIFY `jawaban_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+
+--
 -- AUTO_INCREMENT untuk tabel `kapal_tb`
 --
 ALTER TABLE `kapal_tb`
@@ -748,10 +850,22 @@ ALTER TABLE `nelayan_tb`
   MODIFY `nelayan_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT untuk tabel `pertanyaan_tb`
+--
+ALTER TABLE `pertanyaan_tb`
+  MODIFY `pertanyaan_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
 -- AUTO_INCREMENT untuk tabel `peta_tb`
 --
 ALTER TABLE `peta_tb`
   MODIFY `peta_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT untuk tabel `responden_tb`
+--
+ALTER TABLE `responden_tb`
+  MODIFY `responden_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `tpi_tb`
